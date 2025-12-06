@@ -2,6 +2,7 @@ package com.mycompany.gestionebiblioteca.persistence;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;   // ← IMPORT NECESSARIO PER Paths.get()
 import java.util.Collections;
 import java.util.List;
 import com.mycompany.exceptions.FileRepositoryException;
@@ -31,11 +32,11 @@ public class FileRepository {
      */
     public void writeAll(String path, List<String> lines) {
         try {
-            // Percorso del file finale (es: data/books.txt)
-            Path filePath = Path.of(path);
+            // Percorso del file finale (es: data/books.txt) — compatibile con Java 8
+            Path filePath = Paths.get(path);
 
             // Percorso del file temporaneo (es: data/books.txt.tmp)
-            Path tempPath = Path.of(path + ".tmp");
+            Path tempPath = Paths.get(path + ".tmp");
 
             // Se la cartella non esiste, la creiamo (evita errori su nuove directory)
             if (filePath.getParent() != null && !Files.exists(filePath.getParent())) {
@@ -50,7 +51,7 @@ public class FileRepository {
             // L'opzione REPLACE_EXISTING sostituisce il file vecchio in modo atomico
             Files.move(tempPath, filePath, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
-        } catch (FileRepositoryException e) {
+        } catch (Exception e) {
             // Incapsuliamo l'errore tecnico in un'eccezione applicativa più chiara
             throw new FileRepositoryException("Errore durante la scrittura del file: " + path, e);
         }
@@ -66,7 +67,8 @@ public class FileRepository {
      */
     public List<String> readAll(String path) {
         try {
-            Path filePath = Path.of(path);
+            // Path compatibile con Java 8
+            Path filePath = Paths.get(path);
 
             // Se il file non esiste → archivio vuoto (comportamento desiderato)
             if (!Files.exists(filePath)) {
@@ -76,7 +78,7 @@ public class FileRepository {
             // Lettura di tutte le righe
             return Files.readAllLines(filePath);
 
-        } catch (FileRepositoryException e) {
+        } catch (Exception e) {
             // Un problema di I/O viene trasformato in eccezione applicativa
             throw new FileRepositoryException("Errore durante la lettura del file: " + path, e);
         }
