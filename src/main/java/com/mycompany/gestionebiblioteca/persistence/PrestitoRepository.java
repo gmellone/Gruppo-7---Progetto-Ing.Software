@@ -20,126 +20,52 @@ import java.util.Optional;
 
 
 /**
- * Repository responsabile della gestione dell’archivio dei prestiti.
+ * Repository responsabile ESCLUSIVAMENTE della persistenza dei prestiti.
  *
- * Si occupa di:
- * - leggere la lista dei prestiti da file
- * - salvare modifiche
- * - registrare un nuovo prestito
- * - chiudere (rimuovere) un prestito restituito
- * - ricercare prestiti per utente o per libro
+ * Questa classe si occupa di:
+ *  - leggere l’archivio dei prestiti da file di testo
+ *  - salvare l’intera lista dei prestiti sul file
+ *  - convertire le righe del file in oggetti Prestito
+ *  - convertire gli oggetti Prestito in righe pronte per il salvataggio
  *
- * NON gestisce:
- * - controllo di copie disponibili
- * - limite di 3 prestiti per utente
- * - logiche di data
- * 
- * Queste logiche appartengono al Controller / classe Biblioteca.
+ * NON gestisce alcuna logica di business:
+ *  - non controlla se un utente ha raggiunto il limite dei prestiti
+ *  - non verifica la disponibilità delle copie dei libri
+ *  - non gestisce la restituzione dal punto di vista logico
+ *  - non valida le date o le condizioni dei prestiti
+ *
+ * Tutta la logica applicativa (registrazione prestito, restituzione libro,
+ * aggiornamento copie, controlli sui vincoli) è responsabilità del Controller
+ * o della classe Biblioteca. Questo repository rappresenta esclusivamente lo
+ * strato di "persistenza bassa" basato su file.
  */
 public class PrestitoRepository {
-    /** Percorso del file che contiene l’archivio prestiti. */
-    private final Path filePath;
-
-    /** Modulo di basso livello per leggere/scrivere file. */
+     private final Path filePath;
     private final FileRepository fileRepository;
 
-    /**
-     * Costruttore del repository prestiti.
-     * @param fileName nome del file dell’archivio (es. "prestiti.txt")
-     */
     public PrestitoRepository(String fileName) {
         this.filePath = Paths.get(fileName);
         this.fileRepository = new FileRepository();
     }
 
-    // 1. CARICAMENTO DATI
-
-    /**
-     * Restituisce la lista completa dei prestiti attivi.
-     */
-    public List<Prestito> findAll() {
+    // Carica tutti i prestiti dal file
+    public List<Prestito> loadAll() {
         // TODO
         return new ArrayList<>();
     }
 
-    // 2. RICERCA PRESTITI
-
-    /**
-     * Cerca tutti i prestiti effettuati da un dato utente.
-     *
-     * @param matricola matricola dell'utente
-     */
-    public List<Prestito> findByMatricola(String matricola) {
-        // TODO
-        return new ArrayList<>();
-    }
-
-    /**
-     * Cerca tutti i prestiti associati a un determinato libro.
-     *
-     * @param isbn codice ISBN del libro
-     */
-    public List<Prestito> findByIsbnLibro(String isbn) {
-        // TODO
-        return new ArrayList<>();
-    }
-
-    /**
-     * Cerca un prestito specifico (utente + libro).
-     * Usato durante la restituzione.
-     */
-    public Optional<Prestito> findPrestito(String matricola, String isbn) {
-        // TODO
-        return Optional.empty();
-    }
-
-    // 3. REGISTRAZIONE DI UN NUOVO PRESTITO
-
-    /**
-     * Registra un nuovo prestito nell’archivio.
-     * 
-     * L’oggetto Prestito include:
-     * - matricola dello studente
-     * - isbn del libro
-     * - data restituzione prevista (come String o LocalDate)
-     */
-    public void addPrestito(Prestito p) {
+    // Salva tutti i prestiti nel file
+    public void saveAll(List<Prestito> prestiti) {
         // TODO
     }
 
-    // 4. RESTITUZIONE (CHIUSURA PRESTITO)
-
-
-    /**
-     * Rimuove un prestito dall’archivio (restituzione libro).
-     *
-     * @return true se il prestito è stato trovato e rimosso
-     */
-    public boolean removePrestito(String matricola, String isbn) {
-        // TODO
-        return false;
-    }
-
-    // 5. SUPPORTO: salvataggio e parsing
-
-    /**
-     * Salva tutti i prestiti nel file.
-     */
-    private void saveAll(List<Prestito> prestiti) {
-        // TODO
-    }
-
-    /**
-     * Converte un prestito in una riga del file.
-     */
-    private String format(Prestito p) {
+    // Converte Prestito → riga
+    private String format(Prestito prestito) {
         // TODO
         return "";
     }
 
-    /**
-     * Converte una riga del file in un oggetto Prestito.
-     */
+    // Converte riga → Prestito
     private Prestito parse(String riga) {
         // TODO
         return null;
