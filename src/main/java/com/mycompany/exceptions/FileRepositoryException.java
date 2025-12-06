@@ -1,5 +1,11 @@
 package com.mycompany.exceptions;
 
+/**
+ *
+ * @author Valeria
+ */
+
+
 public class FileRepositoryException extends RuntimeException {
 
     public FileRepositoryException(String message, Throwable cause) {
