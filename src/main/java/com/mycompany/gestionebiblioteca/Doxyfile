@@ -2123,7 +2123,7 @@ LATEX_CMD_NAME         =
 MAKEINDEX_CMD_NAME     = makeindex
 
 # The LATEX_MAKEINDEX_CMD tag can be used to specify the command name to
-# generate index for LaTeX. In case there is no backslash (\) as first character
+# generate an index for LaTeX. In case there is no backslash (\) as first character
 # it will be automatically added in the LaTeX code.
 # Note: This tag is used in the generated output file (.tex).
 # See also: MAKEINDEX_CMD_NAME for the part in the Makefile / make.bat.
@@ -2156,14 +2156,14 @@ PAPER_TYPE             = a4
 # EXTRA_PACKAGES=times or EXTRA_PACKAGES={times}
 # To use the option intlimits with the amsmath package you can specify:
 # EXTRA_PACKAGES=[intlimits]{amsmath}
-# If left blank no extra packages will be included.
+# If left blank, no extra packages will be included.
 # This tag requires that the tag GENERATE_LATEX is set to YES.
 
 EXTRA_PACKAGES         =
 
 # The LATEX_HEADER tag can be used to specify a user-defined LaTeX header for
 # the generated LaTeX document. The header should contain everything until the
-# first chapter. If it is left blank Doxygen will generate a standard header. It
+# first chapter. If it is left blank, Doxygen will generate a standard header. It
 # is highly recommended to start with a default header using
 # doxygen -w latex new_header.tex new_footer.tex new_stylesheet.sty
 # and then modify the file new_header.tex. See also section "Doxygen usage" for
@@ -2180,9 +2180,9 @@ LATEX_HEADER           =
 
 # The LATEX_FOOTER tag can be used to specify a user-defined LaTeX footer for
 # the generated LaTeX document. The footer should contain everything after the
-# last chapter. If it is left blank Doxygen will generate a standard footer. See
+# last chapter. If it is left blank, Doxygen will generate a standard footer. See
 # LATEX_HEADER for more information on how to generate a default footer and what
-# special commands can be used inside the footer. See also section "Doxygen
+# special commands can be used inside the footer. See also the section "Doxygen
 # usage" for information on how to generate the default footer that Doxygen
 # normally uses. Note: Only use a user-defined footer if you know what you are
 # doing!
@@ -2192,7 +2192,7 @@ LATEX_FOOTER           =
 
 # The LATEX_EXTRA_STYLESHEET tag can be used to specify additional user-defined
 # LaTeX style sheets that are included after the standard style sheets created
-# by Doxygen. Using this option one can overrule certain style aspects. Doxygen
+# by Doxygen. Using this option, one can overrule certain style aspects. Doxygen
 # will copy the style sheet files to the output directory.
 # Note: The order of the extra style sheet files is of importance (e.g. the last
 # style sheet in the list overrules the setting of the previous ones in the
