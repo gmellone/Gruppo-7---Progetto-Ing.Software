@@ -72,7 +72,7 @@ public class FileRepository {
 
             // Se il file non esiste → archivio vuoto (comportamento desiderato)
             if (!Files.exists(filePath)) {
-                return Collections.emptyList();
+                return Collections.emptyList(); 
             }
 
             // Lettura di tutte le righe
