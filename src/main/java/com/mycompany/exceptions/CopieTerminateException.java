@@ -13,8 +13,8 @@ package com.mycompany.exceptions;
 /**
  * @brief Eccezione controllata che segnala che un libro non ha copie in archivio
  * 
- * In caso lʼutente abbia richiesto il prestito su un libro che non ha copie in biblioteca 
- * deve mandare un messaggio che informa il bibliotecario che il libro richiesto non ha copie disponibili
+ * In caso lʼutente abbia richiesto il prestito su un libro che non ha copie in biblioteca, il sistema 
+ * deve mandare un messaggio che informa il bibliotecario che il libro richiesto non ha copie disponibili.
  * 
  */
 public class CopieTerminateException extends BibliotecaException {

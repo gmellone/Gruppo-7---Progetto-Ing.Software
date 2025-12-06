@@ -1,6 +1,5 @@
 package com.mycompany.gestionebiblioteca.persistence;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
@@ -51,7 +50,7 @@ public class FileRepository {
             // L'opzione REPLACE_EXISTING sostituisce il file vecchio in modo atomico
             Files.move(tempPath, filePath, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
-        } catch (IOException e) {
+        } catch (FileRepositoryException e) {
             // Incapsuliamo l'errore tecnico in un'eccezione applicativa più chiara
             throw new FileRepositoryException("Errore durante la scrittura del file: " + path, e);
         }
@@ -77,7 +76,7 @@ public class FileRepository {
             // Lettura di tutte le righe
             return Files.readAllLines(filePath);
 
-        } catch (IOException e) {
+        } catch (FileRepositoryException e) {
             // Un problema di I/O viene trasformato in eccezione applicativa
             throw new FileRepositoryException("Errore durante la lettura del file: " + path, e);
         }
