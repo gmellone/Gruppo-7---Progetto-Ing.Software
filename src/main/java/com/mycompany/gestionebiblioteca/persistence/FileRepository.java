@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
-import com.mycompany.Exceptions.FileRepositoryException;
+import com.mycompany.exceptions.FileRepositoryException;
 
 /**
  * Classe di utilità per la lettura e scrittura sicura di file di testo.
