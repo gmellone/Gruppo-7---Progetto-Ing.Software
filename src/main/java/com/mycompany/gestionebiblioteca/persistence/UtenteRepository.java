@@ -18,16 +18,21 @@ import java.util.ArrayList;
 
 
 /**
- * Repository responsabile della gestione dell’archivio degli utenti.
+ * Repository responsabile ESCLUSIVAMENTE della persistenza degli utenti.
  *
- * Si occupa di:
- * - leggere l'archivio da file
- * - salvare modifiche
- * - eseguire ricerche (matricola, cognome)
- * - gestire inserimento, modifica, rimozione utenti
+ * Questa classe si occupa di:
+ *  - leggere l’archivio degli utenti da file di testo
+ *  - salvare l’intera lista degli utenti sul file
+ *  - convertire le righe del file in oggetti Utente
+ *  - convertire gli oggetti Utente in righe pronte per essere salvate
  *
- * Il repository NON contiene logica di business né controlli della GUI.
- * Si limita alla persistenza (lettura/scrittura file).
+ * NON gestisce alcuna logica di business:
+ *  - non controlla se l’utente è già registrato
+ *  - non valida i dati (matricola, e-mail, ecc.)
+ *  - non gestisce prestiti o vincoli applicativi
+ *
+ * Tutta la logica applicativa appartiene al Controller o alla classe Biblioteca,
+ * mentre il repository rappresenta il livello di "persistenza bassa" basato su file.
  */
 public class UtenteRepository {
     
