@@ -1,0 +1,54 @@
+@startuml
+autonumber "<b>[00]"
+
+title Ricerca libro
+
+actor "Bibliotecario" as user
+participant BookView
+participant BookController
+participant BookService
+participant "BookRepository\n<<interface>>" as BookRepository #pink
+participant FileBackedBookRepository
+participant InMemoryBookRepository
+
+user -> BookView: seleziona la funzionalità di gestione libri
+BookView --> user: mostra UI di gestione libri
+
+
+user -> BookView: inserisce criterio di ricerca\n(titolo, autore o ISBN)\ne clicca "Cerca"
+BookView -> BookController: searchBooksAction(criteria)
+
+BookController -> BookService: searchByTitle(keyword)\n(es. ricerca per titolo)
+
+note over BookService
+Interpreta il criterio di ricerca
+ed esegue la ricerca tramite il BookRepository
+end note
+
+BookService -> BookRepository: findByTitleContaining(keyword)
+BookRepository -> FileBackedBookRepository: findByTitleContaining(keyword)
+FileBackedBookRepository -> InMemoryBookRepository: findByTitleContaining(keyword)
+
+note over InMemoryBookRepository
+cicla sulla Hashmap interna dei libri
+e filtra quelli il cui titolo contiene
+la keyword di ricerca
+end note
+InMemoryBookRepository --> InMemoryBookRepository: filtra libri in memoria
+
+InMemoryBookRepository --> FileBackedBookRepository: return list(Book)
+FileBackedBookRepository --> BookRepository: lista di Book trovati
+BookRepository --> BookService: lista di Book trovati
+
+alt BookService: nessun libro trovato?
+    BookService --> BookController: lista vuota
+    BookController --> BookView: showNoResultsMessage()
+    BookView --> user: mostra messaggio "Nessun libro trovato"
+else almeno un libro trovato
+    BookService --> BookController: listaLibri
+    BookController --> BookView: updateBookList(listaLibri)
+    BookView --> user: mostra elenco libri trovati
+end
+
+
+@enduml
