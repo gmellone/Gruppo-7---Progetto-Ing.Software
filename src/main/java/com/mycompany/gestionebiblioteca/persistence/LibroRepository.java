@@ -10,7 +10,7 @@ package com.mycompany.gestionebiblioteca.persistence;
  * @author valerialupo
  */
 
-import com.mycompany.model.Libro;
+import com.mycompany.gestionebiblioteca.model.Libro;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;

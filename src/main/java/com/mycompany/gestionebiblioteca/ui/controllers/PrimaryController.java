@@ -1,6 +1,6 @@
-package com.mycompany.controller;
+package com.mycompany.gestionebiblioteca.ui.controllers;
 
-import com.mycompany.gestionebiblioteca.App;
+import com.mycompany.gestionebiblioteca.ui.App;
 import java.io.IOException;
 import javafx.fxml.FXML;
 

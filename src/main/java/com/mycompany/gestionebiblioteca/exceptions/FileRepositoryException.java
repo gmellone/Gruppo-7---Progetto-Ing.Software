@@ -1,4 +1,4 @@
-package com.mycompany.exceptions;
+package com.mycompany.gestionebiblioteca.exceptions;
 
 /**
  *

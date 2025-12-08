@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;   //IMPORT NECESSARIO PER Paths.get()
 import java.util.Collections;
 import java.util.List;
-import com.mycompany.exceptions.FileRepositoryException;
+import com.mycompany.gestionebiblioteca.exceptions.FileRepositoryException;
 
 /**
  * Classe di utilità per la lettura e scrittura sicura di file di testo.
