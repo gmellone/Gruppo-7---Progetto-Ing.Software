@@ -7,7 +7,7 @@ package com.mycompany.gestionebiblioteca.service;
 
 import com.mycompany.gestionebiblioteca.exceptions.LimiteLibriRaggiuntoException;
 import com.mycompany.gestionebiblioteca.exceptions.UtenteGiaRegistratoException;
-import com.mycompany.gestionebiblioteca.model.Utente;
+import com.mycompany.gestionebiblioteca.model.User;
 import com.mycompany.gestionebiblioteca.persistence.UtenteRepository;
 import java.util.List;
 import java.util.Optional;
@@ -27,11 +27,11 @@ public class UserService {
         this.utenteRepository = utenteRepository;
     }
 
-    public Utente addUser(String matricola, String Nome, String cognome, String email) {
+    public User addUser(String matricola, String Nome, String cognome, String email) {
        return null;
     }
 
-    public Utente  updateUser(String matricola, String Nome, String Cognome, String email) {
+    public User  updateUser(String matricola, String Nome, String Cognome, String email) {
         return null;
     }
 
@@ -39,16 +39,16 @@ public class UserService {
        
     }
 
-    public Optional<Utente> getUserByMatricola(String matricola) {
+    public Optional<User> getUserByMatricola(String matricola) {
        
         return null;
     }
 
-    public List<Utente> searchByLastName(String keyword) {
+    public List<User> searchByLastName(String keyword) {
         return null;
     }
 
-    public List<Utente> getAllUsersOrderedByLastNameAndFirstName() {
+    public List<User> getAllUsersOrderedByLastNameAndFirstName() {
         return null;
     }
 

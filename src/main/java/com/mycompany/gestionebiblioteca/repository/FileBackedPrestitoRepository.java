@@ -1,7 +1,7 @@
 
 package com.mycompany.gestionebiblioteca.repository;
 
-import com.mycompany.gestionebiblioteca.model.Prestito;
+import com.mycompany.gestionebiblioteca.model.Loan;
 import com.mycompany.gestionebiblioteca.persistence.FileManager;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -115,8 +115,8 @@ public class FileBackedPrestitoRepository implements PrestitoRepository {
      * @return Il prestito salvato.
      */
     @Override
-    public Prestito save(Prestito entity) {
-        Prestito saved = delegate.save(entity);
+    public Loan save(Loan entity) {
+        Loan saved = delegate.save(entity);
         persistAll();
         return saved;
     }
@@ -130,7 +130,7 @@ public class FileBackedPrestitoRepository implements PrestitoRepository {
      * @return Optional contenente il prestito, oppure empty().
      */
     @Override
-    public Optional<Prestito> findById(String id) {
+    public Optional<Loan> findById(String id) {
         return delegate.findById(id);
     }
 
@@ -142,7 +142,7 @@ public class FileBackedPrestitoRepository implements PrestitoRepository {
      * @return Lista completa dei prestiti.
      */
     @Override
-    public List<Prestito> findAll() {
+    public List<Loan> findAll() {
         return delegate.findAll();
     }
 
@@ -202,7 +202,7 @@ public class FileBackedPrestitoRepository implements PrestitoRepository {
      * @return Lista dei prestiti attivi o storici dell’utente.
      */
     @Override
-    public List<Prestito> findByUserMatricola(String matricola) {
+    public List<Loan> findByUserMatricola(String matricola) {
         return delegate.findByUserMatricola(matricola);
     }
 
@@ -215,7 +215,7 @@ public class FileBackedPrestitoRepository implements PrestitoRepository {
      * @return Lista dei prestiti corrispondenti.
      */
     @Override
-    public List<Prestito> findByBookIsbn(String isbn) {
+    public List<Loan> findByBookIsbn(String isbn) {
         return delegate.findByBookIsbn(isbn);
     }
 
@@ -227,7 +227,7 @@ public class FileBackedPrestitoRepository implements PrestitoRepository {
      * @return Lista dei prestiti ordinati dalla data più prossima alla scadenza.
      */
     @Override
-    public List<Prestito> findActiveLoansOrderByDueDate() {
+    public List<Loan> findActiveLoansOrderByDueDate() {
         return delegate.findActiveLoansOrderByDueDate();
     }
 
@@ -240,7 +240,7 @@ public class FileBackedPrestitoRepository implements PrestitoRepository {
      * @return Lista dei prestiti attivi.
      */
     @Override
-    public List<Prestito> findActiveLoansByUser(String matricola) {
+    public List<Loan> findActiveLoansByUser(String matricola) {
         return delegate.findActiveLoansByUser(matricola);
     }
     

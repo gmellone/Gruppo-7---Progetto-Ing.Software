@@ -15,9 +15,9 @@
 package com.mycompany.gestionebiblioteca.persistence;
 
 
-import com.mycompany.gestionebiblioteca.model.Libro;
-import com.mycompany.gestionebiblioteca.model.Utente;
-import com.mycompany.gestionebiblioteca.model.Prestito;
+import com.mycompany.gestionebiblioteca.model.Book;
+import com.mycompany.gestionebiblioteca.model.User;
+import com.mycompany.gestionebiblioteca.model.Loan;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -73,7 +73,7 @@ public class FileManager {
      * @return Lista dei libri contenuti nel file.
      * @throws IOException Se si verificano errori di I/O o formati non validi.
      */
-    public List<Libro> loadBooks(Path file) throws IOException{
+    public List<Book> loadBooks(Path file) throws IOException{
         return null;
     }
     
@@ -87,7 +87,7 @@ public class FileManager {
      * @param books Collezione dei libri da salvare.
      * @throws IOException Se si verificano errori di I/O.
      */
-    public void saveBooks(Path file, Collection<Libro> books) throws IOException{
+    public void saveBooks(Path file, Collection<Book> books) throws IOException{
     
     }
     
@@ -104,7 +104,7 @@ public class FileManager {
      * @return Lista dei prestiti caricati.
      * @throws IOException Se il formato è errato o il file non è leggibile.
      */
-    public List<Prestito> loadLoans(Path file) throws IOException{
+    public List<Loan> loadLoans(Path file) throws IOException{
         return null;
     }
     
@@ -117,7 +117,7 @@ public class FileManager {
      * @param loans Collezione di prestiti da salvare.
      * @throws IOException In caso di errori di scrittura.
      */
-    public void saveLoans(Path file, Collection<Prestito> loans) throws IOException{
+    public void saveLoans(Path file, Collection<Loan> loans) throws IOException{
         
     }
     
@@ -134,7 +134,7 @@ public class FileManager {
      * @return Lista degli utenti contenuti nel file.
      * @throws IOException Se il file è formattato in modo errato.
      */
-    public List<Utente> loadUsers(Path file) throws IOException{
+    public List<User> loadUsers(Path file) throws IOException{
         return null;
     }
     
@@ -147,7 +147,7 @@ public class FileManager {
      * @param users Collezione di utenti da salvare.
      * @throws IOException In caso di errore di scrittura.
      */
-    public void saveUsers(Path file, Collection<Utente> users) throws IOException{
+    public void saveUsers(Path file, Collection<User> users) throws IOException{
         
     }
     

@@ -9,6 +9,6 @@ package com.mycompany.gestionebiblioteca.model;
  *
  * @author Giovanni
  */
-public class Utente {
+public class User {
     
 }

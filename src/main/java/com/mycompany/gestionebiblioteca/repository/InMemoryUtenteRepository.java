@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import com.mycompany.gestionebiblioteca.model.Utente;
+import com.mycompany.gestionebiblioteca.model.User;
 
 /**
  *
@@ -19,20 +19,20 @@ import com.mycompany.gestionebiblioteca.model.Utente;
  */
 public class InMemoryUtenteRepository implements UtenteRepository{
     
-    private final Map<String, Utente> storage = new HashMap<>();
+    private final Map<String, User> storage = new HashMap<>();
 
     @Override
-    public Utente save(Utente entity) {
+    public User save(User entity) {
        return null;
     }
 
     @Override
-    public Optional<Utente> findById(String id) {
+    public Optional<User> findById(String id) {
         return null;
     }
 
     @Override
-    public List<Utente> findAll() {
+    public List<User> findAll() {
         return null;
     }
 
@@ -57,17 +57,17 @@ public class InMemoryUtenteRepository implements UtenteRepository{
     }
 
     @Override
-    public Optional<Utente> findByMatricola(String matricola) {
+    public Optional<User> findByMatricola(String matricola) {
         return null;
     }
 
     @Override
-    public List<Utente> findByLastNameContaining(String keyword) {
+    public List<User> findByLastNameContaining(String keyword) {
         return null;
     }
 
     @Override
-    public List<Utente> findAllOrderByLastNameAndFirstName() {
+    public List<User> findAllOrderByLastNameAndFirstName() {
         return null;
     }
     

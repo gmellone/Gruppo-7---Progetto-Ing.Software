@@ -12,7 +12,7 @@
  */
 package com.mycompany.gestionebiblioteca.repository;
 
-import com.mycompany.gestionebiblioteca.model.Libro;
+import com.mycompany.gestionebiblioteca.model.Book;
 import com.mycompany.gestionebiblioteca.persistence.FileManager;
 import java.nio.file.Path;
 import java.util.List;
@@ -105,8 +105,8 @@ public class FileBackedLibroRepository implements LibroRepository {
      * @return Il libro salvato.
      */
     @Override
-    public Libro save(Libro entity) {
-        Libro saved = delegate.save(entity);
+    public Book save(Book entity) {
+        Book saved = delegate.save(entity);
         persistAll();
         return saved;
     }
@@ -116,7 +116,7 @@ public class FileBackedLibroRepository implements LibroRepository {
      * @brief Restituisce un libro tramite il suo ID.
      */
     @Override
-    public Optional<Libro> findById(String id) {
+    public Optional<Book> findById(String id) {
         return delegate.findById(id);
     }
     
@@ -125,7 +125,7 @@ public class FileBackedLibroRepository implements LibroRepository {
      * @brief Restituisce tutti i libri presenti nel repository.
      */
     @Override
-    public List<Libro> findAll() {
+    public List<Book> findAll() {
         return delegate.findAll();
     }
     
@@ -172,7 +172,7 @@ public class FileBackedLibroRepository implements LibroRepository {
      * @brief Cerca un libro tramite ISBN.
      */
     @Override
-    public Optional<Libro> findByIsbn(String isbn) {
+    public Optional<Book> findByIsbn(String isbn) {
         return delegate.findByIsbn(isbn);
     }
 
@@ -181,7 +181,7 @@ public class FileBackedLibroRepository implements LibroRepository {
      * @brief Cerca libri il cui titolo contiene una data parola chiave.
      */
     @Override
-    public List<Libro> findByTitleContaining(String keyword) {
+    public List<Book> findByTitleContaining(String keyword) {
         return delegate.findByTitleContaining(keyword);
     }
     
@@ -190,7 +190,7 @@ public class FileBackedLibroRepository implements LibroRepository {
      * @brief Cerca libri il cui autore contiene una data parola chiave.
      */
     @Override
-    public List<Libro> findByAuthorContaining(String keyword) {
+    public List<Book> findByAuthorContaining(String keyword) {
         return delegate.findByAuthorContaining(keyword);
     }
 
@@ -198,7 +198,7 @@ public class FileBackedLibroRepository implements LibroRepository {
      * @brief Restituisce tutti i libri ordinati per titolo.
      */
     @Override
-    public List<Libro> findAllOrderByTitle() {
+    public List<Book> findAllOrderByTitle() {
         return delegate.findAllOrderByTitle();
     }
 }

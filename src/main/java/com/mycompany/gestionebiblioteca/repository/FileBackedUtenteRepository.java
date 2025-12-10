@@ -1,5 +1,5 @@
 package com.mycompany.gestionebiblioteca.repository;
-import com.mycompany.gestionebiblioteca.model.Utente;
+import com.mycompany.gestionebiblioteca.model.User;
 import com.mycompany.gestionebiblioteca.persistence.FileManager;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -132,8 +132,8 @@ public class FileBackedUtenteRepository implements UtenteRepository {
      * @return L’utente salvato.
      */
     @Override
-    public Utente save(Utente entity) {
-        Utente saved = delegate.save(entity);
+    public User save(User entity) {
+        User saved = delegate.save(entity);
         persistAll();
         return saved;
     }
@@ -148,7 +148,7 @@ public class FileBackedUtenteRepository implements UtenteRepository {
      * @return Optional contenente l’utente, o empty() se non esiste.
      */
     @Override
-    public Optional<Utente> findById(String id) {
+    public Optional<User> findById(String id) {
         return delegate.findById(id);
     }
 
@@ -161,7 +161,7 @@ public class FileBackedUtenteRepository implements UtenteRepository {
      * @return Lista completa degli utenti.
      */
     @Override
-    public List<Utente> findAll() {
+    public List<User> findAll() {
         return delegate.findAll();
     }
 
@@ -232,7 +232,7 @@ public class FileBackedUtenteRepository implements UtenteRepository {
      * @return Optional contenente l’utente trovato, o empty() se non esiste.
      */
     @Override
-    public Optional<Utente> findByMatricola(String matricola) {
+    public Optional<User> findByMatricola(String matricola) {
         return delegate.findByMatricola(matricola);
     }
 
@@ -246,7 +246,7 @@ public class FileBackedUtenteRepository implements UtenteRepository {
      * @return Lista di utenti corrispondenti.
      */
     @Override
-    public List<Utente> findByLastNameContaining(String keyword) {
+    public List<User> findByLastNameContaining(String keyword) {
         return delegate.findByLastNameContaining(keyword);
     }
 
@@ -259,7 +259,7 @@ public class FileBackedUtenteRepository implements UtenteRepository {
      * @return Lista ordinata degli utenti.
      */
     @Override
-    public List<Utente> findAllOrderByLastNameAndFirstName() {
+    public List<User> findAllOrderByLastNameAndFirstName() {
         return delegate.findAllOrderByLastNameAndFirstName();
     }
     

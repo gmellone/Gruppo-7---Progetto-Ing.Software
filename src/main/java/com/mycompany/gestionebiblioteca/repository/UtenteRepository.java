@@ -17,7 +17,7 @@ package com.mycompany.gestionebiblioteca.repository;
  * o su un database)
  * 
  */
-import com.mycompany.gestionebiblioteca.model.Utente;
+import com.mycompany.gestionebiblioteca.model.User;
 import java.util.List;
 import java.util.Optional;       
 
@@ -25,7 +25,7 @@ import java.util.Optional;
  *
  * @author valerialupo
  */
-public interface UtenteRepository extends CrudRepository<String, Utente> {
+public interface UtenteRepository extends CrudRepository<String, User> {
     
     
     
@@ -37,7 +37,7 @@ public interface UtenteRepository extends CrudRepository<String, Utente> {
      * @param matricola Matricola dell’utente da cercare.
      * @return Optional contenente l’utente trovato; empty() se la matricola non esiste.
      */
-    Optional<Utente> findByMatricola(String matricola);
+    Optional<User> findByMatricola(String matricola);
     
     
     
@@ -51,7 +51,7 @@ public interface UtenteRepository extends CrudRepository<String, Utente> {
      * @param keyword Frammento del cognome da cercare.
      * @return Lista degli utenti il cui cognome contiene la parola chiave.
      */
-    List<Utente> findByLastNameContaining(String keyword);
+    List<User> findByLastNameContaining(String keyword);
 
     
     
@@ -69,7 +69,7 @@ public interface UtenteRepository extends CrudRepository<String, Utente> {
      *
      * @return Lista ordinata degli utenti.
      */
-    List<Utente> findAllOrderByLastNameAndFirstName();
+    List<User> findAllOrderByLastNameAndFirstName();
     
 }
 

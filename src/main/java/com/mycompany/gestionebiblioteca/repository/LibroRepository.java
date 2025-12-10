@@ -1,7 +1,7 @@
 
 package com.mycompany.gestionebiblioteca.repository;
 
-import com.mycompany.gestionebiblioteca.model.Libro;
+import com.mycompany.gestionebiblioteca.model.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +24,7 @@ import java.util.Optional;
  *
  * @author valerialupo
  */
-public interface LibroRepository extends CrudRepository<String, Libro> {
+public interface LibroRepository extends CrudRepository<String, Book> {
     
     
     /**
@@ -33,7 +33,7 @@ public interface LibroRepository extends CrudRepository<String, Libro> {
      * @param isbn Il codice ISBN del libro ricercato.
      * @return Un Optional contenente il libro trovato, oppure empty() se non esiste.
      */
-    Optional<Libro> findByIsbn(String isbn);
+    Optional<Book> findByIsbn(String isbn);
     
     
     
@@ -43,7 +43,7 @@ public interface LibroRepository extends CrudRepository<String, Libro> {
      * @param keyword Parola o parte di parola da cercare nel titolo.
      * @return Lista dei libri che soddisfano il criterio di ricerca.
      */
-    List<Libro> findByTitleContaining(String keyword);
+    List<Book> findByTitleContaining(String keyword);
 
     
     
@@ -53,7 +53,7 @@ public interface LibroRepository extends CrudRepository<String, Libro> {
      * @param keyword Parola o parte di parola da cercare nel nome dell'autore.
      * @return Lista dei libri corrispondenti.
      */
-    List<Libro> findByAuthorContaining(String keyword);
+    List<Book> findByAuthorContaining(String keyword);
     
     
     
@@ -62,7 +62,7 @@ public interface LibroRepository extends CrudRepository<String, Libro> {
      *
      * @return Lista ordinata dei libri.
      */
-    List<Libro> findAllOrderByTitle();
+    List<Book> findAllOrderByTitle();
     
 }
 

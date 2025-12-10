@@ -6,7 +6,7 @@
 package com.mycompany.gestionebiblioteca.service;
 import com.mycompany.gestionebiblioteca.exceptions.ElementoNonPresenteinArchivioException;
 import com.mycompany.gestionebiblioteca.exceptions.BibliotecaException;
-import com.mycompany.gestionebiblioteca.model.Libro;
+import com.mycompany.gestionebiblioteca.model.Book;
 import com.mycompany.gestionebiblioteca.repository.LibroRepository;
 import java.util.List;
 import java.util.Optional;
@@ -27,11 +27,11 @@ public class LibroService {
         this.libroRepository = libroRepository;
    }
    
-   public Libro addBook(String isbn,String titolo,List<String>autori,int annoDiPubblicazione,int copieDisponibili){
+   public Book addBook(String isbn,String titolo,List<String>autori,int annoDiPubblicazione,int copieDisponibili){
        return null;
    }
    
-   public Libro updateBook (String isbn,String titolo,List<String>autori,int annoDiPubblicazione,int copieDisponibili){
+   public Book updateBook (String isbn,String titolo,List<String>autori,int annoDiPubblicazione,int copieDisponibili){
        return null;
    }
    
@@ -39,19 +39,19 @@ public class LibroService {
    
    }
    
-   public Optional<Libro> getBookByIsbn(String isbn){
+   public Optional<Book> getBookByIsbn(String isbn){
        return null;
    }
    
-   public List<Libro>searchByTitle(String Keyword){
+   public List<Book>searchByTitle(String Keyword){
        return null;
    }
    
-   public List<Libro>searchByAuthor(String Keyword){
+   public List<Book>searchByAuthor(String Keyword){
        return null;
    }
    
-   public List<Libro>getAllBooksOrderedByTitle(){
+   public List<Book>getAllBooksOrderedByTitle(){
    return null;
    }
    

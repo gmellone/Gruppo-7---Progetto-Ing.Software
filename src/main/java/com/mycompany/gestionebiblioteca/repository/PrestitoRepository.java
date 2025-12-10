@@ -1,7 +1,7 @@
 
 package com.mycompany.gestionebiblioteca.repository;
         
-import com.mycompany.gestionebiblioteca.model.Prestito;
+import com.mycompany.gestionebiblioteca.model.Loan;
 import java.util.List;
         
 /**
@@ -22,11 +22,11 @@ import java.util.List;
  * devono garantire che i metodi definiti rispettino tale contratto.
  *
  * @see CrudRepository
- * @see com.mycompany.gestionebiblioteca.model.Prestito
+ * @see com.mycompany.gestionebiblioteca.model.Loan
  */
 
 
-public interface PrestitoRepository extends CrudRepository<String, Prestito> {
+public interface PrestitoRepository extends CrudRepository<String, Loan> {
     
     
      /**
@@ -38,7 +38,7 @@ public interface PrestitoRepository extends CrudRepository<String, Prestito> {
      * @param matricola Matricola dell’utente.
      * @return Lista dei prestiti associati a quell’utente.
      */
-    List<Prestito> findByUserMatricola(String matricola);
+    List<Loan> findByUserMatricola(String matricola);
 
     
     
@@ -51,7 +51,7 @@ public interface PrestitoRepository extends CrudRepository<String, Prestito> {
      * @param isbn ISBN del libro.
      * @return Lista dei prestiti riferiti a quel libro.
      */
-    List<Prestito> findByBookIsbn(String isbn);
+    List<Loan> findByBookIsbn(String isbn);
     
     
     
@@ -62,7 +62,7 @@ public interface PrestitoRepository extends CrudRepository<String, Prestito> {
      *
      * @return Lista dei prestiti attivi, ordinati per data di restituzione prevista.
      */
-    List<Prestito> findActiveLoansOrderByDueDate();
+    List<Loan> findActiveLoansOrderByDueDate();
 
     
     
@@ -74,7 +74,7 @@ public interface PrestitoRepository extends CrudRepository<String, Prestito> {
      * @param matricola Matricola dell’utente.
      * @return Lista dei prestiti attualmente attivi dell’utente.
      */
-    List<Prestito> findActiveLoansByUser(String matricola);
+    List<Loan> findActiveLoansByUser(String matricola);
 
 }
 
