@@ -51,7 +51,16 @@ public class Loan {
 
     @Override
     public boolean equals(Object o) {
-        return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Loan loan = (Loan) o;
+        return userMatricola.equals(loan.userMatricola)
+                && bookIsbn.equals(loan.bookIsbn)
+                && loanDate.equals(loan.loanDate);
     }
 
     @Override
