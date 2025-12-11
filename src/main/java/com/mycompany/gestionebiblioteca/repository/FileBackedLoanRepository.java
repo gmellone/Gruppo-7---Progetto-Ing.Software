@@ -31,7 +31,7 @@ import java.util.Optional;
  *
  * @author valerialupo
  */
-public class FileBackedPrestitoRepository implements PrestitoRepository {
+public class FileBackedLoanRepository implements LoanRepository {
     
     /**
      * @brief Repository interno che gestisce i dati in memoria.
@@ -40,7 +40,7 @@ public class FileBackedPrestitoRepository implements PrestitoRepository {
      * altra struttura dati. Questo repository viene arricchito con la
      * persistenza su file da questa classe decoratrice.
      */
-    private final PrestitoRepository delegate;
+    private final LoanRepository delegate;
     
      /**
      * @brief Oggetto responsabile della lettura e scrittura dei prestiti su file.
@@ -66,7 +66,7 @@ public class FileBackedPrestitoRepository implements PrestitoRepository {
      * @param loansFile Percorso del file contenente i prestiti.
      * @throws IllegalArgumentException Se uno dei parametri è null.
      */
-    public FileBackedPrestitoRepository(PrestitoRepository delegate, FileManager fileManager, Path loansFile) {
+    public FileBackedLoanRepository(LoanRepository delegate, FileManager fileManager, Path loansFile) {
         if (delegate == null) {
             throw new IllegalArgumentException("delegate must not be null");
         }

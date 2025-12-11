@@ -7,9 +7,9 @@ package com.mycompany.gestionebiblioteca.service;
 import com.mycompany.gestionebiblioteca.exceptions.ElementoNonPresenteinArchivioException;
 import com.mycompany.gestionebiblioteca.exceptions.BibliotecaException;
 import com.mycompany.gestionebiblioteca.model.Book;
-import com.mycompany.gestionebiblioteca.repository.LibroRepository;
 import java.util.List;
 import java.util.Optional;
+import com.mycompany.gestionebiblioteca.repository.BookRepository;
 
 
 /**
@@ -18,9 +18,9 @@ import java.util.Optional;
  */
 public class LibroService {
     
-   private final LibroRepository libroRepository;
+   private final BookRepository libroRepository;
    
-   public LibroService(LibroRepository libroRepository){
+   public LibroService(BookRepository libroRepository){
    if (libroRepository == null) {
             throw new IllegalArgumentException("bookRepository must not be null");
         }

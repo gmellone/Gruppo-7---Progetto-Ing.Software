@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 
-public interface PrestitoRepository extends CrudRepository<String, Loan> {
+public interface LoanRepository extends CrudRepository<String, Loan> {
     
     
      /**

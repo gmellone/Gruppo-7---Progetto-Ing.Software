@@ -25,7 +25,7 @@ import java.util.Optional;
  *
  * @author valerialupo
  */
-public interface UtenteRepository extends CrudRepository<String, User> {
+public interface UserRepository extends CrudRepository<String, User> {
     
     
     

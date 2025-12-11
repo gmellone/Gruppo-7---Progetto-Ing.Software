@@ -24,7 +24,7 @@ import java.util.Optional;
  *
  * @author valerialupo
  */
-public interface LibroRepository extends CrudRepository<String, Book> {
+public interface BookRepository extends CrudRepository<String, Book> {
     
     
     /**

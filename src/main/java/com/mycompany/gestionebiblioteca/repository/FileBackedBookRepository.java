@@ -30,12 +30,12 @@ import java.util.Optional;
  * LibroRepository (delegate) aggiungendo la persistenza su file senza
  * modificarne l’implementazione interna.
  */
-public class FileBackedLibroRepository implements LibroRepository {
+public class FileBackedBookRepository implements BookRepository {
     
     /**
      * @brief Repository interno che gestisce i dati in memoria.
      */
-    private final LibroRepository delegate;
+    private final BookRepository delegate;
     
     /**
      * @brief Gestore della lettura e scrittura dei dati su file.
@@ -58,7 +58,7 @@ public class FileBackedLibroRepository implements LibroRepository {
      * @param booksFile Percorso del file contenente i libri.
      * @throws IllegalArgumentException Se uno dei parametri è null.
      */
-    public FileBackedLibroRepository(LibroRepository delegate, FileManager fileManager, Path booksFile) {
+    public FileBackedBookRepository(BookRepository delegate, FileManager fileManager, Path booksFile) {
         if (delegate == null) {
             throw new IllegalArgumentException("delegate non deve essere null");
         }

@@ -35,7 +35,7 @@ import java.util.Optional;
  */
 
 
-public class FileBackedUtenteRepository implements UtenteRepository {
+public class FileBackedUserRepository implements UserRepository {
     
     
     /**
@@ -45,7 +45,7 @@ public class FileBackedUtenteRepository implements UtenteRepository {
      * FileBackedUtenteRepository si limita a delegare e ad occuparsi
      * della persistenza su filesystem.
      */
-    private final UtenteRepository delegate; // a runtime sarà iniettato InMemoryUtenteRepository
+    private final UserRepository delegate; // a runtime sarà iniettato InMemoryUtenteRepository
     
     /**
      * @brief Componente incaricato della lettura/scrittura atomica dei file.
@@ -72,7 +72,7 @@ public class FileBackedUtenteRepository implements UtenteRepository {
      *
      * @throws IllegalArgumentException Se uno dei parametri è null.
      */
-    public FileBackedUtenteRepository(UtenteRepository delegate, FileManager fileManager, Path usersFile) {
+    public FileBackedUserRepository(UserRepository delegate, FileManager fileManager, Path usersFile) {
         if (delegate == null) {
             throw new IllegalArgumentException("delegate non deve essere null");
         }

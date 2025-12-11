@@ -17,7 +17,7 @@ import com.mycompany.gestionebiblioteca.model.User;
  *
  * @author david
  */
-public class InMemoryUtenteRepository implements UtenteRepository{
+public class InMemoryUtenteRepository implements UserRepository{
     
     private final Map<String, User> storage = new HashMap<>();
 
