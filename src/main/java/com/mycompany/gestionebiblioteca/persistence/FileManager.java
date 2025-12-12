@@ -265,7 +265,7 @@ public class FileManager {
 
             // ogni riga deve contenere esattamente 5 campi -> se il formato non è rispettato -> file non valido
             if (parts.length != 5) {
-                throw new IOException("Invalid loans file line: " + rawLine);
+                throw new IOException("Riga non valida nel file dei prestiti: " + rawLine);
             }
 
             // estrazione dei valori testuali
@@ -303,7 +303,7 @@ public class FileManager {
                 /*
                 trasforma l'errore di parsinh in un errore di file (ioexception)
                  */
-                throw new IOException("Invalid date value in loans file line: " + rawLine, e);
+                throw new IOException("Valore di data non valido nella riga del file dei prestiti: " + rawLine, e);
             }
         }
 
@@ -322,11 +322,11 @@ public class FileManager {
     public void saveLoans(Path file, Collection<Loan> loans) throws IOException {
         // se il file è null -> IllegalArgumentException perchè il metodo non sa dove scrivere
         if (file == null) {
-            throw new IllegalArgumentException("file must not be null");
+            throw new IllegalArgumentException("file non deve essere null");
         }
         // se loans è null -> nulla da salvare 
         if (loans == null) {
-            throw new IllegalArgumentException("loans must not be null");
+            throw new IllegalArgumentException("loans non deve essere null");
         }
            
         
@@ -383,7 +383,7 @@ public class FileManager {
     public List<User> loadUsers(Path file) throws IOException {
         // verifico che il percorso del file non sia nullo
         if (file == null) { 
-            throw new IllegalArgumentException("file must not be null");
+            throw new IllegalArgumentException("file non deve essere null");
         }
 
         // se il file non è stato ancora cretao il metodo non fallisce ma:
@@ -427,7 +427,7 @@ public class FileManager {
             String[] parts = line.split("\\|", -1);
             // ogni riga deve contenere esattamente 4 campi
             if (parts.length != 4) {
-                throw new IOException("Invalid users file line: " + rawLine);
+                throw new IOException("Riga non valida nel file degli utenti: " + rawLine);
             }
             
             // estrazione dei campi
@@ -458,10 +458,10 @@ public class FileManager {
     // questo metodo è speculare a saveBooks e saveLoans, cambia solo il tipo di dato (User) e il numero di campi 
     public void saveUsers(Path file, Collection<User> users) throws IOException {
         if (file == null) {
-            throw new IllegalArgumentException("file must not be null");
+            throw new IllegalArgumentException("file non deve essere null");
         }
         if (users == null) {
-            throw new IllegalArgumentException("users must not be null");
+            throw new IllegalArgumentException("users non deve essere null");
         }
 
         List<String> lines = new ArrayList<>();

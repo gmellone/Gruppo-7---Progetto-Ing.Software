@@ -14,6 +14,8 @@ package com.mycompany.gestionebiblioteca.repository;
 
 import com.mycompany.gestionebiblioteca.model.Book;
 import com.mycompany.gestionebiblioteca.persistence.FileManager;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -58,7 +60,17 @@ public class FileBackedBookRepository implements BookRepository {
      * @param booksFile Percorso del file contenente i libri.
      * @throws IllegalArgumentException Se uno dei parametri è null.
      */
+    
+    // FileBackedrepository non salva i dati direttamente in strutture proprie 
+    // fa da adattatore tra repository in memoria -> delegate 
+    // e persistenza su file -> FileManager
+    
+    // il file non è la fonte diretta dei dati a runtime
+    // la fonte reale è il repository in memoria, che viene inizializzato dal file solo all'avvio
+    
+    // questa classe dipende da altre componenti : non crea nulla da sola , riceve tutto dall'esterno -> dependency injection)
     public FileBackedBookRepository(BookRepository delegate, FileManager fileManager, Path booksFile) {
+        
         if (delegate == null) {
             throw new IllegalArgumentException("delegate non deve essere null");
         }
@@ -68,10 +80,11 @@ public class FileBackedBookRepository implements BookRepository {
         if (booksFile == null) {
             throw new IllegalArgumentException("booksFile non deve essere null");
         }
-        this.delegate = delegate;
-        this.fileManager = fileManager;
-        this.booksFile = booksFile;
-        loadFromFile();
+        this.delegate = delegate; // chi gestisce i dati
+        this.fileManager = fileManager; // come si salvano
+        this.booksFile = booksFile; // dove si salvano
+        
+        loadFromFile(); // caricamento inziale dal file
 
     }
     
@@ -82,7 +95,26 @@ public class FileBackedBookRepository implements BookRepository {
      * Questo metodo legge tutti i record tramite FileManager
      * e li inserisce nel repository in memoria (delegate).
      */
-    private void loadFromFile() {
+    
+    // è private perche viene chiamato solo dal costruttore 
+    private void loadFromFile() { // sincronizza il repository in memoria (delegate) con il contenuto del file dei libri
+         try { 
+            // FileManager apre il file, legge riga per riga, converte ogni riga in un oggetto Book 
+            // e poi restituisce una lista di libri
+            List<Book> books = fileManager.loadBooks(booksFile); 
+            
+            // pulizia del repository in memoria
+            // serve a garantire che il repository in memoria non contenga dati vecchi 
+            // e che quindi la memoria rifletta esattamente il file
+            delegate.deleteAll();
+            
+            // itero su ogni libro letto dal file , delegando la gestione dei dati al repository in memoria 
+            for (Book book : books) {
+                delegate.save(book);
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException("Errore durante il caricamento dei libri dal file " + booksFile, e);
+        }
 
     }
     
@@ -93,8 +125,15 @@ public class FileBackedBookRepository implements BookRepository {
      * Questo metodo garantisce che ogni modifica sia immediatamente
      * persistita per evitare perdita di dati.
      */
-    private void persistAll() {
-
+    private void persistAll() { // salvare su file lo stato completo e corrente del repository in memoria
+        try { 
+            // recupero dello stato corrente
+            List<Book> allBooks = delegate.findAll(); 
+            // scrittura sul file
+            fileManager.saveBooks(booksFile, allBooks);
+        } catch (IOException e) {
+            throw new UncheckedIOException("Errore durante il salvataggio dei libri sul file " + booksFile, e);
+        }
     }
     
     
