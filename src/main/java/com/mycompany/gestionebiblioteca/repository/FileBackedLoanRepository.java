@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 /**
- * @class FileBackedPrestitoRepository
+ * @class FileBackedLoanRepository
  * @brief Implementazione di PrestitoRepository con persistenza su file.
  *
  * Questa classe funge da decoratore per un repository di prestiti (delegate),
@@ -31,7 +31,10 @@ import java.util.Optional;
  *
  * @author valerialupo
  */
-public class FileBackedLoanRepository implements LoanRepository {
+
+
+// chi usa LoanRepository non deve sapere se i dati sono salvati in memoria, su file o su database
+public class FileBackedLoanRepository implements LoanRepository { 
     
     /**
      * @brief Repository interno che gestisce i dati in memoria.
@@ -66,21 +69,33 @@ public class FileBackedLoanRepository implements LoanRepository {
      * @param loansFile Percorso del file contenente i prestiti.
      * @throws IllegalArgumentException Se uno dei parametri è null.
      */
+    
+    
     public FileBackedLoanRepository(LoanRepository delegate, FileManager fileManager, Path loansFile) {
         if (delegate == null) {
-            throw new IllegalArgumentException("delegate must not be null");
+            throw new IllegalArgumentException("delegate non deve essere null");
         }
         if (fileManager == null) {
-            throw new IllegalArgumentException("fileManager must not be null");
+            throw new IllegalArgumentException("fileManager non deve essere null");
         }
         if (loansFile == null) {
-            throw new IllegalArgumentException("loansFile must not be null");
+            throw new IllegalArgumentException("loansFile non deve essere null");
         }
+        
         this.delegate = delegate;
         this.fileManager = fileManager;
         this.loansFile = loansFile;
+        
+        // caricamento iniziale dei dati
+        /*
+        quando questa rep nasce, deve rappresentare esattamente lo stato salvato nel file
+        cio implica che il repository non nasce vuoto, parte sincronizzato con la persitenza
+        
+        dopo il costruttore : delegate contiene tutti i file presenti nel file + la memoria riflette il file
+        */
         loadFromFile();
     }
+    
     
     
     /**
@@ -91,6 +106,21 @@ public class FileBackedLoanRepository implements LoanRepository {
      * UncheckedIOException nell’implementazione completa.
      */
     private void loadFromFile() {
+        try {
+            // cosa succede : fileManager apre il file + legge le righe + le converte in oggetti Loan
+            // il repository non sa nulla del formato del file
+            List<Loan> loans = fileManager.loadLoans(loansFile); 
+            
+            // pulizia del repository -> il delegate potrebbe non essere vuoto -> voglio che la memoria rifletta solo il contenuto del file
+            delegate.deleteAll();
+            
+            // inserimento dei prestiti in memoria 
+            for (Loan loan : loans) {
+                delegate.save(loan);
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException("Errore durante il caricamento dei prestiti dal file " + loansFile, e);
+        }
         
     }
     
@@ -102,7 +132,15 @@ public class FileBackedLoanRepository implements LoanRepository {
      * Questo metodo è invocato dopo ogni modifica (salvataggio o cancellazione)
      * per mantenere consistenza tra memoria e file.
      */
-    private void persistAll() {
+    private void persistAll() { // private perchè chi usa il repository non deve sapere quando o come avviene la persitenza
+        try {
+            // lettura dello stato corrente in memoria
+            List<Loan> allLoans = delegate.findAll();
+            // cosa succede: il fileManager apre il file + serializza ogni Loan + scrive il contenuto
+            fileManager.saveLoans(loansFile, allLoans);
+        } catch (IOException e) {
+            throw new UncheckedIOException("Errore durante il salvataggio dei prestiti sul file " + loansFile, e);
+        }
       
     }
 
