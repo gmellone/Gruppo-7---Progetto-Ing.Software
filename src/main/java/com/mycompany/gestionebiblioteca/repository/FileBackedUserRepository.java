@@ -41,9 +41,10 @@ public class FileBackedUserRepository implements UserRepository {
     /**
      * @brief Repository in-memory che gestisce effettivamente gli utenti.
      *
-     * Questo oggetto esegue tutte le operazioni CRUD.
-     * FileBackedUtenteRepository si limita a delegare e ad occuparsi
-     * della persistenza su filesystem.
+     * Questo oggetto implememta tutte le operazioni crud sugli utenti.
+     * FileBackedUserRepository agisce come decoratore, delegando le operazioni 
+     * al repository in-memory e occupandosi esclusivamente della persistenza
+     * dei dati su filesystem
      */
     private final UserRepository delegate; // a runtime sarà iniettato InMemoryUtenteRepository
     
@@ -87,6 +88,8 @@ public class FileBackedUserRepository implements UserRepository {
         this.usersFile = usersFile;
         loadFromFile();
     }
+    
+    
 
     
     
@@ -102,6 +105,15 @@ public class FileBackedUserRepository implements UserRepository {
      * @throws UncheckedIOException Se il file non può essere letto correttamente.
      */
     private void loadFromFile() {
+        try {
+            List<User> users = fileManager.loadUsers(usersFile);
+            delegate.deleteAll();
+            for (User user : users) {
+                delegate.save(user);
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException("Failed to load users from file " + usersFile, e);
+        }
         
     }
 
@@ -118,6 +130,12 @@ public class FileBackedUserRepository implements UserRepository {
      * @throws UncheckedIOException Se durante il salvataggio si verifica un errore I/O.
      */
     private void persistAll() {
+        try {
+            List<User> allUsers = delegate.findAll();
+            fileManager.saveUsers(usersFile, allUsers);
+        } catch (IOException e) {
+            throw new UncheckedIOException("Failed to save users to file " + usersFile, e);
+        }
        
     }
 
