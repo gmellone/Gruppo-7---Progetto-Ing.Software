@@ -10,7 +10,7 @@ package com.mycompany.gestionebiblioteca.repository;
  * @author Giovanni
  */
 
-import com.mycompany.getionebiblioteca.model.Loan;
+import com.mycompany.gestionebiblioteca.model.Loan;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;

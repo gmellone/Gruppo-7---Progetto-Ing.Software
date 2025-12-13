@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class User {
 
-    private final String matricola;
+    private String matricola;
     private String firstName;
     private String lastName;
     private String email;
@@ -32,6 +32,7 @@ public class User {
     public String getEmail() { return email; }
 
     //SETTER
+    public void setMatricola(String matricola) { this.matricola = matricola; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
     public void setEmail(String email) { this.email = email; }

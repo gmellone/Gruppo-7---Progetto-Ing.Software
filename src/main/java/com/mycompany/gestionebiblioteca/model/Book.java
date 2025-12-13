@@ -13,7 +13,7 @@ package com.mycompany.gestionebiblioteca.model;
 import java.util.Objects;
 
 public class Book {
-    private final String isbn;
+    private String isbn;
     private String title;
     private String author;
     private int year;
@@ -38,6 +38,7 @@ public class Book {
     public int getAvailableCopies() { return availableCopies; }
 
     //SETTER
+    public void setIsbn(String isbn){ this.isbn = isbn; }
     public void setTitle(String title) { this.title = title; }
     public void setAuthor(String author) { this.author = author; }
     public void setYear(int year) { this.year = year; }
