@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 package com.mycompany.gestionebiblioteca.repository;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +16,13 @@ import com.mycompany.gestionebiblioteca.model.User;
  *
  * @author david
  */
-public class InMemoryUtenteRepository implements UserRepository{
-    
+public class InMemoryUtenteRepository implements UserRepository {
+
     private final Map<String, User> storage = new HashMap<>();
 
     @Override
     public User save(User entity) {
-       return null;
+        return null;
     }
 
     @Override
@@ -38,12 +37,12 @@ public class InMemoryUtenteRepository implements UserRepository{
 
     @Override
     public void deleteById(String id) {
-        return null;
+
     }
 
     @Override
     public void deleteAll() {
-        return null;
+
     }
 
     @Override
@@ -70,5 +69,5 @@ public class InMemoryUtenteRepository implements UserRepository{
     public List<User> findAllOrderByLastNameAndFirstName() {
         return null;
     }
-    
+
 }

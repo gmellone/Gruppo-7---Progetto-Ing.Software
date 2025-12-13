@@ -7,27 +7,32 @@ package com.mycompany.gestionebiblioteca.service;
 
 import com.mycompany.gestionebiblioteca.exceptions.LimiteLibriRaggiuntoException;
 import com.mycompany.gestionebiblioteca.model.Loan;
-import com.mycompany.gestionebiblioteca.persistence.PrestitoRepository;
-import com.mycompany.gestionebiblioteca.persistence.PrestitoRepository;
+import com.mycompany.gestionebiblioteca.repository.BookRepository;
+import com.mycompany.gestionebiblioteca.repository.LoanRepository;
+import com.mycompany.gestionebiblioteca.repository.UserRepository;
+
 import java.time.LocalDate;
 import java.util.List;
 
 /**
- * 
+ *
  *
  * @author david
  */
 public class PrestitoService {
-    
-    private final PrestitoRepository prestitoRepository;
-    private final LibroRepository libroRepository;
+
+    private final LoanRepository loanRepository;
+    private final BookRepository bookRepository;
     private final UserRepository userRepository;
-    
-     public PrestitoService(PrestitoRepository prestitoRepository,
-            LibroRepository libroRepository,
+
+    public PrestitoService(LoanRepository prestitoRepository,
+            BookRepository libroRepository,
             UserRepository userRepository) {
-       
-         
+
+        this.loanRepository = prestitoRepository;
+        this.bookRepository = libroRepository;
+        this.userRepository = userRepository;
+
     }
 
     public Loan registerLoan(String matricola, String isbn,
@@ -36,16 +41,16 @@ public class PrestitoService {
         validateIsbn(isbn);
         validateLoanDates(loanDate, dueDate);
 
-       return null;
+        return null;
     }
 
     public Loan registerReturn(Loan loan, LocalDate returnDate) {
-        
+
         return null;
-            }
+    }
 
     public List<Loan> getActiveLoansOrderedByDueDate() {
-        return prestitoRepository.findActiveLoansOrderByDueDate();
+        return loanRepository.findActiveLoansOrderByDueDate();
     }
 
     public List<Loan> getActiveLoansByUser(String matricola) {
@@ -57,16 +62,15 @@ public class PrestitoService {
     }
 
     private void validateMatricola(String matricola) {
-        
+
     }
 
     private void validateIsbn(String isbn) {
-       
+
     }
 
     private void validateLoanDates(LocalDate loanDate, LocalDate dueDate) {
-        
+
     }
 
-    
 }

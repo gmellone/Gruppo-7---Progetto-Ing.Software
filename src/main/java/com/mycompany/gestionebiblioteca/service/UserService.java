@@ -8,7 +8,7 @@ package com.mycompany.gestionebiblioteca.service;
 import com.mycompany.gestionebiblioteca.exceptions.LimiteLibriRaggiuntoException;
 import com.mycompany.gestionebiblioteca.exceptions.UtenteGiaRegistratoException;
 import com.mycompany.gestionebiblioteca.model.User;
-import com.mycompany.gestionebiblioteca.persistence.UtenteRepository;
+import com.mycompany.gestionebiblioteca.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +20,9 @@ public class UserService {
     
     
 
-    private final UtenteRepository utenteRepository;
+    private final UserRepository utenteRepository;
 
-    public UserService(UtenteRepository utenteRepository) {
+    public UserService(UserRepository utenteRepository) {
        
         this.utenteRepository = utenteRepository;
     }
