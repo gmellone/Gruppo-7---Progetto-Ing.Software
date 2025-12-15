@@ -1,2 +1,21 @@
 ISBN|Titolo|Autori|Anno|CopieTotali|CopieDisponibili
-
+9788891915641|Principi di marketing|P. Kotler, G. Armstrong|2023|30|30
+9788842050389|Storia moderna|R. Ago, V. Vidotto|2021|45|45
+9788843093200|Manuale di glottodidattica|P. Diadori, M. Palermo, D. Troncarelli|2020|15|15
+9788808399830|Microeconomia|P. Krugman, R. Wells|2022|30|30
+9788870518917|Anatomia umana. Il trattato e l'atlante|G. Anastasi, C. Tacchetti, E. Gaudio|2025|14|14
+9788813364410|Gestione delle operations e della supply chain|R. B. Chase, F. R. Jacobs, A. Grando|2020|18|18
+9788808182036|Biologia molecolare della cellula|B. Alberts, A. Johnson, J. Lewis, M. Raff|2022|18|18
+9788891904539|Psicologia generale|R. J. Gerrig, P. G. Zimbardo, L. Anolli|2021|35|35
+9788829930586|Farmacognosia e fitoterapia|G. Mazzanti, M. Dell'Agli, A. A. Izzo|2020|15|15
+9788891905437|Statistica: principi e metodi|G. Cicchitelli, P. D'Urso, M. Vichi|2022|28|28
+9788879591379|Fisica - Volume 1 (Meccanica, Termodinamica)|P. Mazzoldi, M. Nigro, C. Voci|2021|35|35
+9788808721099|Chimica degli alimenti|P. Cappelli, V. Vannucchi|2024|20|20
+9788808254214|Analisi matematica 1|M. Bramanti, C. D. Pagani, S. Salsa|2023|50|50
+9788891902887|Reti di calcolatori e internet|J. F. Kurose, K. W. Ross|2022|22|22
+9791221115260|Diritto costituzionale|R. Bin, G. Pitruzzella|2024|50|50
+9788838656545|Basi di dati|P. Atzeni, S. Ceri, P. Fraternali, S. Paraboschi|2023|25|25
+9788829929337|Chimica generale. Principi ed applicazioni moderne|R. H. Petrucci, F. G. Herring, J. D. Madura|2018|25|25
+9788871926575|Architettura e organizzazione dei calcolatori|C. Hamacher, Z. Vranesic, S. Zaky|2021|16|16
+9788815298942|Fondamenti di sociologia|A. Giddens, P. W. Sutton|2022|20|20
+9788808064851|Capire la Terra|J. P. Grotzinger, T. H. Jordan|2021|12|12

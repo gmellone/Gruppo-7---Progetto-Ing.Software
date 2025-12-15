@@ -1,2 +1,5 @@
 Matricola|Nome|Cognome|Email
-
+0612709722|Giovanni|Mellone|g.mellone6@studenti.unisa.it
+0612709530|Carmine|Muollo|c.muollo4@studenti.unisa.it
+0612710197|Davide Andrea|Odierna|d.odierna3@studenti.unisa.it
+0612709915|Valeria|Lupo|v.lupo7@studenti.unisa.it

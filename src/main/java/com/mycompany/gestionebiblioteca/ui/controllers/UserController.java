@@ -249,7 +249,7 @@ public class UserController {
         }
 
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Sei sicuro di voler eliminare l'utente " + selected.getLastName() + "?",
+                "Sei sicuro di voler eliminare l'utente " + selected.getFirstName() + " " + selected.getLastName() + "?",
                 ButtonType.OK, ButtonType.CANCEL);
         confirm.setHeaderText(null);
 

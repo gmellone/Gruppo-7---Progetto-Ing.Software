@@ -291,6 +291,7 @@ public class BookController {
         }
 
         String query = searchField.getText().trim();
+
         // Mostro la lista completa se il campo di ricerca è vuoto
         if (query.isEmpty()) {
             refreshBooks();
@@ -305,7 +306,7 @@ public class BookController {
                 return;
             }
         }
-        // Recupero una lista con tutti i libri per 
+        // Recupero una lista con tutti i libri per titolo
         List<Book> allBooks = bookService.getAllBooksOrderedByTitle();
 
         List<Book> filteredResults = new ArrayList<>();
@@ -319,7 +320,8 @@ public class BookController {
             boolean matchTitle = book.getTitle() != null && book.getTitle().toLowerCase().contains(lowerQuery);
 
             // Check Autore (Case Insensitive)
-            boolean matchAuthor = book.getAuthors() != null && book.getAuthors().contains(lowerQuery);
+            boolean matchAuthor = book.getAuthors() != null && book.getAuthors().stream()
+                    .anyMatch(author -> author.toLowerCase().contains(lowerQuery));
 
             // Se almeno un di questi tre criteri combacia viene visualizzato il risultato sotto forma di lista
             if (matchIsbn || matchTitle || matchAuthor) {

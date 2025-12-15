@@ -28,13 +28,13 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="searchBookField" promptText="Cerca per titolo o ISBN..." />
+                  <TextField fx:id="searchBookField" promptText="Cerca per titolo" />
                   
                   <TableView fx:id="bookSelectionTable" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="bookIsbnCol" prefWidth="120.0" text="ISBN" />
                       <TableColumn fx:id="bookTitleCol" prefWidth="180.0" text="Titolo" />
-                      <TableColumn fx:id="bookAuthorCol" prefWidth="150.0" text="Autore" />
+                      <TableColumn fx:id="bookAuthorCol" prefWidth="150.0" text="Autori" />
                       </columns>
                   </TableView>
                </children>
@@ -47,7 +47,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="searchUserField" promptText="Cerca per cognome o matricola..." />
+                  <TextField fx:id="searchUserField" promptText="Cerca per cognome" />
                   
                   <TableView fx:id="userSelectionTable" stylesheets="@../../../../../styles/tables.css" VBox.vgrow="ALWAYS">
                     <columns>
@@ -111,14 +111,14 @@
                   </Label>
                   <TableView fx:id="activeLoansTable" prefHeight="200.0" stylesheets="@../../../../../styles/tables.css" VBox.vgrow="ALWAYS">
                     <columns>
-                      <TableColumn fx:id="loanMatricolaCol" prefWidth="100.0" text="Matricola" />
-                      <TableColumn fx:id="loanUserNameCol" prefWidth="100.0" text="Nome" />
-                      <TableColumn fx:id="loanUserSurnameCol" prefWidth="100.0" text="Cognome" />
+                      <TableColumn fx:id="loanMatricolaCol" prefWidth="116.0" text="Matricola" />
+                      <TableColumn fx:id="loanUserNameCol" prefWidth="84.0" text="Nome" />
+                      <TableColumn fx:id="loanUserSurnameCol" prefWidth="126.0" text="Cognome" />
                       
-                      <TableColumn fx:id="loanBookTitleCol" prefWidth="150.0" text="Libro" />
-                      <TableColumn fx:id="loanBookAuthorCol" prefWidth="120.0" text="Autore" />
+                      <TableColumn fx:id="loanBookTitleCol" prefWidth="124.0" text="Libro" />
+                      <TableColumn fx:id="loanBookAuthorCol" prefWidth="146.0" text="Autori" />
                       
-                      <TableColumn fx:id="loanDueDateCol" prefWidth="100.0" text="Scadenza" />
+                      <TableColumn fx:id="loanDueDateCol" prefWidth="74.0" text="Scadenza" />
                     </columns>
                   </TableView>
                   <HBox alignment="CENTER_RIGHT">

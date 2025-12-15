@@ -294,13 +294,16 @@ public class LoanService {
      */
     private void validateLoanDates(LocalDate loanDate, LocalDate dueDate) {
         if (loanDate == null) {
-            throw new ValidationException("loanDate non deve essere nulla");
+            throw new ValidationException("La data di inizio del prestito non deve essere nulla");
         }
         if (dueDate == null) {
-            throw new ValidationException("dueDate non deve essere nulla");
+            throw new ValidationException("La data di restituzione non deve essere nulla");
         }
         if (dueDate.isBefore(loanDate)) {
-            throw new ValidationException("dueDate non può essere inserita prima di loanDate");
+            throw new ValidationException("La data di restituzione non può essere inserita prima della data di inizio del prestito");
+        }
+        if (loanDate.isAfter(LocalDate.now())){
+            throw new ValidationException("Il prestito non può essere registrato in data successiva alla data Odierna");
         }
     }
 
