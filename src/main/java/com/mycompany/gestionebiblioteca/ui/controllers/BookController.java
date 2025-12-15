@@ -397,7 +397,7 @@ public class BookController {
         if (authorsInput == null || authorsInput.trim().isEmpty()) {
             return new ArrayList<>();
         }
-        return Arrays.stream(authorsInput.split(","))
+        return Arrays.stream(authorsInput.split(";"))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toList());

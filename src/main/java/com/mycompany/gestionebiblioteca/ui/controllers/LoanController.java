@@ -314,7 +314,7 @@ public class LoanController {
     private void setupBookTable() {
         bookIsbnCol.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         bookTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        bookAuthorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
+        bookAuthorCol.setCellValueFactory(new PropertyValueFactory<>("authors"));
     }
 
     /**
