@@ -70,7 +70,7 @@ class BookServiceTest {
 
         List<String> lines = Files.readAllLines(booksFile, StandardCharsets.UTF_8);
         assertEquals(2, lines.size());
-        assertEquals("ISBN|Titolo|Autore|Anno|CopieTotali|CopieDisponibili", lines.get(0));
+        assertEquals("ISBN|Titolo|Autori|Anno|CopieTotali|CopieDisponibili", lines.get(0));
         assertEquals("9781234567890|Title|Author|2020|5|5", lines.get(1));
     }
 
@@ -195,11 +195,13 @@ class BookServiceTest {
         autori.add("Author");
 
         service.addBook("9781234567890", "Old Title", autori, 2000, 5);
-
-        Book updated = service.updateBook("9781234567890", "9781234567890", "New Title", autori, 2021, 10);
+        List<String> nuoviAutori = new ArrayList<>();
+        nuoviAutori.add("New Author");
+        
+        Book updated = service.updateBook("9781234567890", "9781234567890", "New Title", nuoviAutori, 2021, 10);
 
         assertEquals("New Title", updated.getTitle());
-        assertEquals("New Author", updated.getAuthors());
+        assertEquals(nuoviAutori, updated.getAuthors());
         assertEquals(2021, updated.getYear());
         assertEquals(10, updated.getTotalCopies());
 
@@ -277,7 +279,7 @@ class BookServiceTest {
 
         List<String> lines = Files.readAllLines(booksFile, StandardCharsets.UTF_8);
         assertEquals(2, lines.size());
-        assertEquals("9781234567891|Other|Other|2021|3|3", lines.get(1));
+        assertEquals("9781234567891|Other|Author|2021|3|3", lines.get(1));
     }
 
     @Test
