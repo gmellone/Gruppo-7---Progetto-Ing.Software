@@ -125,7 +125,20 @@ public class FileManager {
             // lettura dei campi
             String isbn = parts[0]; // isbn è obbligatorio 
             String title = emptyToNull(parts[1]); // title e author possono essere null-> nel caso vengono trasformati in null
-            String author = emptyToNull(parts[2]);
+            String authorsStr = emptyToNull(parts[2]);
+            
+            // parsing degli autori separati da punto e virgola
+            List<String> authors = new ArrayList<>();
+            if (authorsStr != null && !authorsStr.isEmpty()) {
+                String[] authorArray = authorsStr.split(";");
+                for (String author : authorArray) {
+                    String trimmed = author.trim();
+                    if (!trimmed.isEmpty()) {
+                        authors.add(trimmed);
+                    }
+                }
+            }
+            
             int year;
             int totalCopies;
             int availableCopies;
@@ -140,7 +153,7 @@ public class FileManager {
             }
 
             // creazione dell'oggetto Book
-            Book book = new Book(isbn, title, author, year, totalCopies, availableCopies);
+            Book book = new Book(isbn, title, authors, year, totalCopies, availableCopies);
             result.add(book);
         }
 
@@ -180,19 +193,30 @@ public class FileManager {
             // + porto i dati in una forma standard per evitare che ci siano valori nulli o caratteri che potrebbero compromettere il formato del file
             String isbn = requireNoSeparator(book.getIsbn()); // isbn è obbligatorio (requireNoSeparator verifica che non contenga il carattere separatore)
             String title = requireNoSeparator(nullToEmpty(book.getTitle())); // se title o author sono null -> diventano stringhe vuote
-            String author = requireNoSeparator(nullToEmpty(book.getAuthor()));
+            
+            List<String> authors = book.getAuthors();
+            String authorsStr = "";
+            
+            if (authors != null && !authors.isEmpty()) {
+                // Validate that no author contains separator or semicolon
+                for (String author : authors) {
+                    requireNoSeparator(author);
+                    if (author != null && author.contains(";")) {
+                        throw new IllegalArgumentException("Author name must not contain ';': " + author);
+                    }
+                }
+                authorsStr = String.join(";", authors);
+            }
+            
+            
+            
             String year = String.valueOf(book.getYear());  // i valori numerici vengono convertiti in stringhe -> cosi il file contiene solo testo
             String totalCopies = String.valueOf(book.getTotalCopies());
             String availableCopies = String.valueOf(book.getAvailableCopies());
 
             // costruzione della riga del file 
-            String line = String.join(SEPARATOR,
-                    isbn,
-                    title,
-                    author,
-                    year,
-                    totalCopies,
-                    availableCopies);
+            String line = String.join(SEPARATOR, isbn,title,authorsStr, year, totalCopies, availableCopies);
+            
             lines.add(line);
         }
 
