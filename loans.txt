@@ -1,0 +1,1 @@
+Matricola|ISBN|DataPrestito|DataRestituzionePrevista|DataRestituzioneEffettiva

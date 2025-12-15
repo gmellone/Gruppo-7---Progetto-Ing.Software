@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="loanRootElement" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.gestionebiblioteca.ui.controllers.LoanController">
+
+   <center>
+      <HBox spacing="20.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            
+            <VBox spacing="10.0" stylesheets="@../../../../../styles/tables.css" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Seleziona Libro" textFill="#1976d2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="searchBookField" promptText="Cerca per titolo o ISBN..." />
+                  
+                  <TableView fx:id="bookSelectionTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="bookIsbnCol" prefWidth="120.0" text="ISBN" />
+                      <TableColumn fx:id="bookTitleCol" prefWidth="180.0" text="Titolo" />
+                      <TableColumn fx:id="bookAuthorCol" prefWidth="150.0" text="Autore" />
+                      </columns>
+                  </TableView>
+               </children>
+            </VBox>
+
+            <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Seleziona Utente" textFill="#1976d2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="searchUserField" promptText="Cerca per cognome o matricola..." />
+                  
+                  <TableView fx:id="userSelectionTable" stylesheets="@../../../../../styles/tables.css" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="userMatricolaCol" prefWidth="120.0" text="Matricola" />
+                      <TableColumn fx:id="userNomeCol" prefWidth="150.0" text="Nome" />
+                      <TableColumn fx:id="userCognomeCol" prefWidth="150.0" text="Cognome" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+
+   <bottom>
+      <VBox spacing="15.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+         <children>
+            
+            <VBox spacing="10.0" style="-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-radius: 5; -fx-background-radius: 5;">
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+               <children>
+                  <Label text="Dettagli del Prestito" textFill="#1976d2">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label text="Data Inizio:" />
+                              <DatePicker fx:id="loanDatePicker" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label text="Data Scadenza:" />
+                              <DatePicker fx:id="dueDatePicker" />
+                           </children>
+                        </VBox>
+                        
+                        <HBox HBox.hgrow="ALWAYS" />
+                        
+                        <Button mnemonicParsing="false" onAction="#onRegisterLoan" prefHeight="40.0" prefWidth="200.0" stylesheets="@../../../../../styles/buttons.css" text="REGISTRA PRESTITO" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+
+            <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Riepilogo Prestiti Attivi" textFill="#333333">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="activeLoansTable" prefHeight="200.0" stylesheets="@../../../../../styles/tables.css" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="loanMatricolaCol" prefWidth="100.0" text="Matricola" />
+                      <TableColumn fx:id="loanUserNameCol" prefWidth="100.0" text="Nome" />
+                      <TableColumn fx:id="loanUserSurnameCol" prefWidth="100.0" text="Cognome" />
+                      
+                      <TableColumn fx:id="loanBookTitleCol" prefWidth="150.0" text="Libro" />
+                      <TableColumn fx:id="loanBookAuthorCol" prefWidth="120.0" text="Autore" />
+                      
+                      <TableColumn fx:id="loanDueDateCol" prefWidth="100.0" text="Scadenza" />
+                    </columns>
+                  </TableView>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onReturnLoan" prefHeight="36.0" prefWidth="258.0" stylesheets="@../../../../../styles/buttons.css" text="RESTITUISCI LIBRO SELEZIONATO" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </bottom>
+
+</BorderPane>

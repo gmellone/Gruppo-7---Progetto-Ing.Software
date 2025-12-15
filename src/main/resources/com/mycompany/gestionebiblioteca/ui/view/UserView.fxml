@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.gestionebiblioteca.ui.controllers.UserController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <children>
+                <Label text="Cerca Utente:" />
+                <TextField fx:id="searchField" prefHeight="25.0" prefWidth="422.0" promptText="Matricola o Cognome" stylesheets="@../../../../../styles/textfields.css" />
+                <Button onAction="#onSearchUser" stylesheets="@../../../../../styles/buttons.css" text="Cerca" />
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="userTable" prefWidth="652.0" stylesheets="@../../../../../styles/tables.css">
+            <columns>
+                <TableColumn fx:id="matricolaColumn" prefWidth="150.0" text="Matricola" />
+                <TableColumn fx:id="firstNameColumn" prefWidth="150.0" text="Nome" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="158.0" text="Cognome" />
+                <TableColumn fx:id="emailColumn" prefWidth="192.0" text="Email" />
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <VBox spacing="8.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <children>
+                <GridPane hgap="5.0" stylesheets="@../../../../../styles/textfields.css" vgap="5.0">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="25" />
+                        <ColumnConstraints percentWidth="75" />
+                    </columnConstraints>
+                    <children>
+                        <Label text="Matricola:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="matricolaField" promptText="Matricola" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                        <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextField fx:id="firstNameField" promptText="Nome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                        <Label text="Cognome:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <TextField fx:id="lastNameField" promptText="Cognome" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <TextField fx:id="emailField" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+                <HBox spacing="10.0" stylesheets="@../../../../../styles/buttons.css">
+                    <children>
+                        <Button onAction="#onAddUser" text="Aggiungi" />
+                        <Button onAction="#onUpdateUser" text="Modifica" />
+                        <Button onAction="#onDeleteUser" text="Elimina" />
+                        <Button onAction="#onRefreshUsers" text="Ricarica" />
+                        <Button onAction="#onClearForm" text="Pulisci campi" />
+                    </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>
