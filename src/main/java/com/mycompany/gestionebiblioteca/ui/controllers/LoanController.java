@@ -21,6 +21,8 @@ import java.time.LocalDate;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.layout.Pane;
+import java.time.format.DateTimeFormatter;
+import javafx.scene.control.TableCell;
 
 /**
  * @file LoanController.java
@@ -147,10 +149,30 @@ public class LoanController {
      * dinamicamente dai service tramite i metodi getter.
      */
     private void setupLoanTable() {
-        loanMatricolaCol.setCellValueFactory(new PropertyValueFactory<>("Matricola"));
+
+        loanMatricolaCol.setCellValueFactory(cellData
+                -> new SimpleStringProperty(cellData.getValue().getUserMatricola()));
+
         loanDueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
 
-        // Mappatura nome utente da matricola
+        DateTimeFormatter italianFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        loanDueDateCol.setCellFactory(column -> {
+            return new TableCell<Loan, LocalDate>() {
+                @Override
+                protected void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        // Qui trasformiamo la data nel formato giorno/mese/anno
+                        setText(italianFormatter.format(item));
+                    }
+                }
+            };
+        });
+
         loanUserNameCol.setCellValueFactory(cellData -> {
             String matricola = cellData.getValue().getUserMatricola();
             return userService.getUserByMatricola(matricola)
@@ -158,7 +180,6 @@ public class LoanController {
                     .orElse(new SimpleStringProperty(""));
         });
 
-        // Mappatura cognome utente da matricola
         loanUserSurnameCol.setCellValueFactory(cellData -> {
             String matricola = cellData.getValue().getUserMatricola();
             return userService.getUserByMatricola(matricola)
@@ -166,7 +187,6 @@ public class LoanController {
                     .orElse(new SimpleStringProperty(""));
         });
 
-        // Mappatura titolo libro (da ISBN)
         loanBookTitleCol.setCellValueFactory(cellData -> {
             String isbn = cellData.getValue().getBookIsbn();
             return bookService.getBookByIsbn(isbn)
@@ -174,11 +194,10 @@ public class LoanController {
                     .orElse(new SimpleStringProperty("Libro Rimosso"));
         });
 
-        // Mappatura autore libro (da ISBN)
         loanBookAuthorCol.setCellValueFactory(cellData -> {
             String isbn = cellData.getValue().getBookIsbn();
             return bookService.getBookByIsbn(isbn)
-                    .map(book -> new SimpleStringProperty(book.getAuthor()))
+                    .map(book -> new SimpleStringProperty(book.getAuthorsAsString()))
                     .orElse(new SimpleStringProperty(""));
         });
     }
@@ -244,16 +263,21 @@ public class LoanController {
 
         // La data di restituzione effettiva coincide con la data odierna
         LocalDate actualReturnDate = LocalDate.now();
+        //formattazione della data di restituzione (per i messaggi di alert)
+        DateTimeFormatter italianFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+        // 2. Controllo Ritardo (con date formattate)
         if (actualReturnDate.isAfter(selectedLoan.getDueDate())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Prestito Scaduto");
             alert.setHeaderText("Attenzione: Restituzione in Ritardo!");
+
+            // Uso .format(italianFormatter) per visualizzare le date correttamente
             alert.setContentText(
                     "Il prestito è scaduto.\n"
-                    + "Data Scadenza Prevista: " + selectedLoan.getDueDate() + "\n"
-                    + "Data Restituzione Effettiva: " + actualReturnDate + "\n\n"
-                    + "Verificare se è necessario applicare sanzioni"
+                    + "Data Scadenza Prevista: " + selectedLoan.getDueDate().format(italianFormatter) + "\n"
+                    + "Data Restituzione Effettiva: " + actualReturnDate.format(italianFormatter) + "\n\n"
+                    + "Verificare se è necessario applicare sanzioni."
             );
 
             alert.showAndWait();
@@ -261,8 +285,10 @@ public class LoanController {
 
         try {
             loanService.registerReturn(selectedLoan, actualReturnDate);
-            showInfo("Successo", "Libro restituito correttamente in data: " + actualReturnDate);
-            refreshAllData(); // Il prestito sparisce dalla tabella attivi
+            showInfo("Successo", "Libro restituito correttamente in data: "
+                    + actualReturnDate.format(italianFormatter));
+
+            refreshAllData();
         } catch (Exception e) {
             showError("Errore durante la restituzione: " + e.getMessage());
         }
@@ -352,18 +378,21 @@ public class LoanController {
             bookSelectionTable.setItems(FXCollections.observableArrayList(bookService.searchByTitle(keyword)));
         }
     }
+
     /**
-     * @brief Metodo ausiliario per visualizzare messaggi di errore critici.
-     * (ad esempio impossibile registrare prestito, se l'utente ha già 3 prestiti attivi)
+     * @brief Metodo ausiliario per visualizzare messaggi di errore critici. (ad
+     * esempio impossibile registrare prestito, se l'utente ha già 3 prestiti
+     * attivi)
      * @param message Il testo dell'errore.
      */
     private void showError(String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
         alert.showAndWait();
     }
+
     /**
-     * @brief Metodo ausiliario per visualizzare messaggi di informazione 
-     * (ad esempio: prestito restituito con successo).
+     * @brief Metodo ausiliario per visualizzare messaggi di informazione (ad
+     * esempio: prestito restituito con successo).
      * @param message Il testo del messaggio di informazione.
      */
     private void showInfo(String title, String msg) {

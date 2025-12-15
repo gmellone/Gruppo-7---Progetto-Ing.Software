@@ -10,7 +10,10 @@ import com.mycompany.gestionebiblioteca.exceptions.ValidationException;
 import com.mycompany.gestionebiblioteca.model.Book;
 import com.mycompany.gestionebiblioteca.service.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -106,7 +109,9 @@ public class BookController {
     private void initialize() {
         isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+        authorColumn.setCellValueFactory(cellData
+                -> new SimpleStringProperty(cellData.getValue().getAuthorsAsString()));
+
         yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
         totalCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("totalCopies"));
         availableCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("availableCopies"));
@@ -139,7 +144,8 @@ public class BookController {
 
         String isbn = isbnField.getText();
         String title = titleField.getText();
-        String author = authorField.getText();
+        String authorsInput = authorField.getText();
+        List<String> authors = parseAuthors(authorsInput);
         int year;
         int totalCopies;
         try {
@@ -151,7 +157,7 @@ public class BookController {
         }
 
         try {
-            bookService.addBook(isbn, title, author, year, totalCopies);
+            bookService.addBook(isbn, title, authors, year, totalCopies);
             refreshBooks();
             clearForm();
         } catch (ValidationException e) {
@@ -187,7 +193,8 @@ public class BookController {
 
         String isbn = isbnField.getText();
         String title = titleField.getText();
-        String author = authorField.getText();
+        String authorsInput = authorField.getText();
+        List<String> authors = parseAuthors(authorsInput);
         int year;
         int totalCopies;
         try {
@@ -199,7 +206,7 @@ public class BookController {
         }
 
         try {
-            bookService.updateBook(oldIsbn, isbn, title, author, year, totalCopies);
+            bookService.updateBook(oldIsbn, isbn, title, authors, year, totalCopies);
             refreshBooks();
             clearForm();
         } catch (ValidationException | NotFoundException e) {
@@ -213,8 +220,8 @@ public class BookController {
      * @brief Gestisce la rimozione di un libro.
      *
      * Chiede conferma all'utente tramite una finestra di dialogo prima di
-     * procedere. Se il libro è attualmente in prestito, il BookService solleverà
-     * un'eccezione che verrà catturata e mostrata qui.
+     * procedere. Se il libro è attualmente in prestito, il BookService
+     * solleverà un'eccezione che verrà catturata e mostrata qui.
      */
     @FXML
     private void onDeleteBook() {
@@ -247,9 +254,10 @@ public class BookController {
             }
         });
     }
+
     /**
-     * @brief Ricarica manualmente la lista dei libri.
-     * Azionato dal bottone "Ricarica" nella GUI 
+     * @brief Ricarica manualmente la lista dei libri. Azionato dal bottone
+     * "Ricarica" nella GUI
      */
     @FXML
     private void onRefreshBooks() {
@@ -259,6 +267,7 @@ public class BookController {
         }
         refreshBooks();
     }
+
     /**
      * @brief Pulisce i campi del form di inserimento.
      */
@@ -266,13 +275,14 @@ public class BookController {
     private void onClearForm() {
         clearForm();
     }
+
     /**
      * @brief Esegue la ricerca dei libri.
      *
-     * Implementa una logica di filtro sulla lista:
-     * 1. Se la query è vuota, mostra tutti i libri.
-     * 2. Se la query è numerica, cerca per corrispondenza parziale nell'ISBN.
-     * 3. Altrimenti, cerca per corrispondenza parziale su Titolo o Autore (Case Insensitive).
+     * Implementa una logica di filtro sulla lista: 1. Se la query è vuota,
+     * mostra tutti i libri. 2. Se la query è numerica, cerca per corrispondenza
+     * parziale nell'ISBN. 3. Altrimenti, cerca per corrispondenza parziale su
+     * Titolo o Autore (Case Insensitive).
      */
     @FXML
     private void onSearchBook() {
@@ -309,7 +319,7 @@ public class BookController {
             boolean matchTitle = book.getTitle() != null && book.getTitle().toLowerCase().contains(lowerQuery);
 
             // Check Autore (Case Insensitive)
-            boolean matchAuthor = book.getAuthor() != null && book.getAuthor().toLowerCase().contains(lowerQuery);
+            boolean matchAuthor = book.getAuthors() != null && book.getAuthors().contains(lowerQuery);
 
             // Se almeno un di questi tre criteri combacia viene visualizzato il risultato sotto forma di lista
             if (matchIsbn || matchTitle || matchAuthor) {
@@ -335,6 +345,7 @@ public class BookController {
         alert.setTitle("Ricerca");
         alert.showAndWait();
     }
+
     /**
      * @brief Recupera tutti i libri dal servizio e aggiorna la TableView.
      */
@@ -346,6 +357,7 @@ public class BookController {
         booksData.setAll(books);
         bookTable.refresh();
     }
+
     /**
      * @brief Riempie i campi del form con i dati di un libro selezionato.
      * @param book Il libro da visualizzare nei campi di input.
@@ -353,12 +365,14 @@ public class BookController {
     private void populateForm(Book book) {
         isbnField.setText(book.getIsbn());
         titleField.setText(book.getTitle());
-        authorField.setText(book.getAuthor());
+        authorField.setText(book.getAuthorsAsString());
         yearField.setText(String.valueOf(book.getYear()));
         totalCopiesField.setText(String.valueOf(book.getTotalCopies()));
     }
+
     /**
-     * @brief Pulisce tutti i campi di input e deseleziona l'oggetto nella tabella.
+     * @brief Pulisce tutti i campi di input e deseleziona l'oggetto nella
+     * tabella.
      */
     private void clearForm() {
         isbnField.clear();
@@ -368,6 +382,7 @@ public class BookController {
         totalCopiesField.clear();
         bookTable.getSelectionModel().clearSelection();
     }
+
     /**
      * @brief Metodo ausiliario per visualizzare messaggi di errore critici.
      * @param message Il testo dell'errore.
@@ -376,5 +391,15 @@ public class BookController {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    private List<String> parseAuthors(String authorsInput) {
+        if (authorsInput == null || authorsInput.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+        return Arrays.stream(authorsInput.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
     }
 }

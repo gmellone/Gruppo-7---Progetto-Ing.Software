@@ -21,7 +21,7 @@
             </padding>
             <children>
                 <Label text="Cerca Libro:" />
-                <TextField fx:id="searchField" prefHeight="25.0" prefWidth="422.0" promptText="ISBN, Titolo o Autore" stylesheets="@../../../../../styles/textfields.css" />
+                <TextField fx:id="searchField" prefHeight="25.0" prefWidth="422.0" promptText="ISBN, Titolo o Autori" stylesheets="@../../../../../styles/textfields.css" />
                 <Button onAction="#onSearchBook" stylesheets="@../../../../../styles/buttons.css" text="Cerca" />
             </children>
         </HBox>
@@ -31,7 +31,7 @@
             <columns>
                 <TableColumn fx:id="isbnColumn" prefWidth="150.0" text="ISBN" />
                 <TableColumn fx:id="titleColumn" prefWidth="188.0" text="Titolo" />
-                <TableColumn fx:id="authorColumn" prefWidth="150.0" text="Autore" />
+                <TableColumn fx:id="authorColumn" prefWidth="150.0" text="Autori" />
                 <TableColumn fx:id="yearColumn" prefWidth="92.0" text="Anno" />
                 <TableColumn fx:id="totalCopiesColumn" prefWidth="103.0" text="Copie totali" />
                 <TableColumn fx:id="availableCopiesColumn" prefWidth="117.0" text="Copie disponibili" />
