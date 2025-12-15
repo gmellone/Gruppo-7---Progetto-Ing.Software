@@ -1,2 +1,2 @@
-ISBN|Titolo|Autore|Anno|CopieTotali|CopieDisponibili
+ISBN|Titolo|Autori|Anno|CopieTotali|CopieDisponibili
 

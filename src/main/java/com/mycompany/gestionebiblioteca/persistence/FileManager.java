@@ -45,7 +45,7 @@ public class FileManager {
     /**
      * @brief Header del file dei libri.
      */
-    private static final String BOOKS_HEADER = "ISBN|Titolo|Autore|Anno|CopieTotali|CopieDisponibili";
+    private static final String BOOKS_HEADER = "ISBN|Titolo|Autori|Anno|CopieTotali|CopieDisponibili";
 
     /**
      * @brief Header del file degli utenti.
