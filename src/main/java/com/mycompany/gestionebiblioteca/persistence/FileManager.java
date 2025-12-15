@@ -328,22 +328,21 @@ public class FileManager {
         if (loans == null) {
             throw new IllegalArgumentException("loans non deve essere null");
         }
-           
-        
+
         List<String> lines = new ArrayList<>(); // lines contiene tutte le righe del file
         lines.add(LOANS_HEADER); // la prima riga è sempre l'header
 
         for (Loan loan : loans) { // iterazione su tutti i prestiti 
             if (loan == null) { // se nella collezione dei prestiti c'è un null -> viene ignorato
-                continue; 
+                continue;
             }
-            
+
             // estrazione e validazione dei campi 
             String matricola = requireNoSeparator(loan.getUserMatricola()); // controlla che non contenga il separatore
             String isbn = requireNoSeparator(loan.getBookIsbn());
             String loanDate = loan.getLoanDate().toString(); // conversione delle date in stringhe
             String dueDate = loan.getDueDate().toString();
-            
+
             //se returnDate esiste -> scrivila come data 
             // se returnDate è null -> scrivi la stringa null ( null nel file rappresenta prestito non restituito)
             String returnDate = loan.getReturnDate() != null ? loan.getReturnDate().toString() : "null";
@@ -352,24 +351,20 @@ public class FileManager {
             String line = String.join(SEPARATOR, matricola, isbn, loanDate, dueDate, returnDate);
             lines.add(line); // la riga viene aggiunta alla lista delle righe da scrivere
         }
-        
+
         // creazione della directory se non esiste ( se esiste gia -> nessun errore)
         Path parent = file.getParent();
         if (parent != null) {
             Files.createDirectories(parent);
         }
-        
+
         // scrittura finale su file (crea il file se non esiste) 
         Files.write(file, lines, StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
     }
 
-    
-    
-    
     // operazioni sugli utenti 
-    
     /**
      * @brief Carica l'elenco degli utenti da file.
      *
@@ -382,7 +377,7 @@ public class FileManager {
      */
     public List<User> loadUsers(Path file) throws IOException {
         // verifico che il percorso del file non sia nullo
-        if (file == null) { 
+        if (file == null) {
             throw new IllegalArgumentException("file non deve essere null");
         }
 
@@ -399,11 +394,11 @@ public class FileManager {
                     StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             return new ArrayList<>(); // restituisco lista vuota ( se il file non esiste ->  non ci sono utenti registrati) 
         }
-        
+
         // lettura del file esistente 
         List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8); // tutte le righe del file vengono lette in memoria
         List<User> result = new ArrayList<>(); // result contiene gli utenti validi 
-        
+
         // iterazione riga per riga (uso un ciclo perche la prima riga è l'header e bisogna sapere quando i == 0)
         for (int i = 0; i < lines.size(); i++) {
             // ignoro righe nulle
@@ -411,31 +406,31 @@ public class FileManager {
             if (rawLine == null) {
                 continue;
             }
-            
+
             // rimuovo spazi inutili + righe vuote vengono ignorate 
             String line = rawLine.trim();
             if (line.isEmpty()) {
                 continue;
             }
-            
+
             // la prima riga non rappresenta un utente perche è l'header
             if (i == 0 && line.equals(USERS_HEADER)) {
                 continue;
             }
-            
+
             // suddivisione della riga in campi
             String[] parts = line.split("\\|", -1);
             // ogni riga deve contenere esattamente 4 campi
             if (parts.length != 4) {
                 throw new IOException("Riga non valida nel file degli utenti: " + rawLine);
             }
-            
+
             // estrazione dei campi
             String matricola = parts[0]; // matricola è obbligatoria 
             String firstName = emptyToNull(parts[1]); // nome, cognome e mail se sono vuoti diventano null
             String lastName = emptyToNull(parts[2]);
             String email = emptyToNull(parts[3]);
-            
+
             // creazione dell'oggetto User
             User user = new User(matricola, firstName, lastName, email);
             // l'utente valido viene salvato nella lista finale
@@ -454,7 +449,6 @@ public class FileManager {
      * @param users Collezione di utenti da salvare.
      * @throws IOException In caso di errore di scrittura.
      */
-    
     // questo metodo è speculare a saveBooks e saveLoans, cambia solo il tipo di dato (User) e il numero di campi 
     public void saveUsers(Path file, Collection<User> users) throws IOException {
         if (file == null) {
@@ -502,7 +496,8 @@ public class FileManager {
      * @return Stringa vuota se il valore è null; altrimenti il valore stesso.
      */
     private static String nullToEmpty(String value) {
-        return null;
+        return value == null ? "" : value;
+
     }
 
     /**
@@ -512,7 +507,7 @@ public class FileManager {
      * @return null se la stringa è vuota; altrimenti la stringa originale.
      */
     private static String emptyToNull(String value) {
-        return null;
+        return value == null || value.isEmpty() ? null : value;
     }
 
     /**
@@ -526,7 +521,9 @@ public class FileManager {
      * @throws IllegalArgumentException Se contiene il separatore.
      */
     private static String requireNoSeparator(String value) {
-        return null;
+        if (value != null && value.contains(SEPARATOR)) {
+            throw new IllegalArgumentException("Field value must not contain '" + SEPARATOR + "': " + value);
+        }
+        return value;
     }
-
 }
